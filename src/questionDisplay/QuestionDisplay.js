@@ -11,7 +11,6 @@ function QuestionDisplay({ questionId }) {
         `https://0h8nti4f08.execute-api.ap-northeast-1.amazonaws.com/getQuestionDetails/getquestiondetails?QuestionID=${questionId}`
       );
       const data = await response.json();
-      console.log(data);
       setQuestion(data[0].Question);
     }
 
