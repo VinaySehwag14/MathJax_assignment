@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import QuestionDisplay from "./questionDisplay/QuestionDisplay";
+import "./App.css";
 
 function App() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const questionIds = [
+    "AreaUnderTheCurve_901",
+    "BinomialTheorem_901",
+    "DifferentialCalculus2_901",
+  ];
+  const currentQuestionId = questionIds[currentQuestionIndex];
+
+  function handleNextQuestion() {
+    setCurrentQuestionIndex((index) => (index + 1) % questionIds.length);
+  }
+
+  function handlePrevQuestion() {
+    setCurrentQuestionIndex(
+      (index) => (index - 1 + questionIds.length) % questionIds.length
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <QuestionDisplay questionId={currentQuestionId} />
+      <div className="button-container">
+        <button className="button-prev" onClick={handlePrevQuestion}>
+          Previous
+        </button>
+        <button className="button-next" onClick={handleNextQuestion}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
